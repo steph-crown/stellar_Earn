@@ -7,20 +7,23 @@ import { UserListener } from './listeners/user.listener';
 import { QuestListener } from './listeners/quest.listener';
 import { PayoutListener } from './listeners/payout.listener';
 import { SubmissionListener } from './listeners/submission.listener';
-import { EventStoreService } from './event-store/event-store.service';
 import { EventStore } from './entities/event-store.entity';
-import { QuestEventsHandler } from './handlers/quest-events.handler';
-import { UserEventsHandler } from './handlers/user-events.handler';
-import { SubmissionEventsHandler } from './handlers/submission-events.handler';
-import { DeadLetterHandler } from './handlers/dead-letter.handler';
+import { EventStoreService } from './event-store/event-store.service';
+import { EventPersistenceListener } from './listeners/event-persistence.listener';
+import { DeadLetterQueueListener } from './listeners/dead-letter-queue.listener';
+import { JobsModule } from '../modules/jobs/jobs.module';
 
 @Global()
 @Module({
     imports: [
         EventEmitterModule.forRoot(eventsConfig),
         TypeOrmModule.forFeature([EventStore]),
+        JobsModule,
     ],
     providers: [
+        EventStoreService,
+        EventPersistenceListener,
+        DeadLetterQueueListener,
         EventAuditListener,
         UserListener,
         QuestListener,

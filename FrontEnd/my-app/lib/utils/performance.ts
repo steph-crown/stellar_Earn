@@ -1,3 +1,5 @@
+import type { Metric } from 'web-vitals';
+
 export const trackPerformance = (metricName: string, value: number, extra?: any) => {
     if (typeof window !== 'undefined' && 'performance' in window) {
         console.log(`[Performance] ${metricName}: ${value}ms`, extra || '');
@@ -30,7 +32,7 @@ export const reportWebVitals = (onPerfEntry?: (metric: any) => void) => {
     if (onPerfEntry && onPerfEntry instanceof Function) {
         import('web-vitals').then(({ onCLS, onFID, onFCP, onLCP, onTTFB }) => {
             onCLS(onPerfEntry);
-            onFID(onPerfEntry);
+            // onFID(onPerfEntry);
             onFCP(onPerfEntry);
             onLCP(onPerfEntry);
             onTTFB(onPerfEntry);
