@@ -29,6 +29,11 @@ import { JobsModule } from '../modules/jobs/jobs.module';
         QuestListener,
         PayoutListener,
         SubmissionListener,
+        EventStoreService,
+        QuestEventsHandler,
+        UserEventsHandler,
+        SubmissionEventsHandler,
+        DeadLetterHandler,
     ],
     exports: [EventEmitterModule, EventStoreService],
 })
